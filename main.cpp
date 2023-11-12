@@ -47,7 +47,7 @@ bool charInString(char c, std::string s)
 bool findCharInString(int &index, int startAt, char c, std::string s)
 {
     if (!charInString(c, s.substr(startAt + 1))) return false;
-    index = s.substr(startAt + 1).find(c);
+    index = s.substr(startAt).find(c) + startAt;
     return true;
 }
 

@@ -38,17 +38,17 @@ void addSymbolByNTimes(std::string &s, char symbol, int n)
     }
 }
 
-bool findCharInString(int &index, char c, std::string s)
+bool charInString(char c, std::string s)
 {
-    for (index = 0; index < s.size(); index++) // a simple loop will do fine, its not like we're doing 10000 letters long words
-    {
-        if (s.at(index) == c)
-        {
-            return true;
-        }
-    }
-    index = 0;
+    if (s.find(c) != std::string::npos) return true;
     return false;
+}
+
+bool findCharInString(int &index, int startAt, char c, std::string s)
+{
+    if (!charInString(c, s.substr(startAt + 1))) return false;
+    index = s.substr(startAt + 1).find(c);
+    return true;
 }
 
 void smallLetterIfy(std::string &s)
@@ -81,13 +81,16 @@ int main()
         smallLetterIfy(guess);
         if (guess.size() < 2)
         {
-            int index = 0;
+            int index = -1;
             char cGuess = guess.c_str()[0];
-            if (findCharInString(index, cGuess, answer))
+            if (!charInString(cGuess, answer)) fail++;
+            else
             {
-                view.at(index) = cGuess;
+                while (findCharInString(index, index + 1, cGuess, answer))
+                {
+                    view.at(index) = cGuess;
+                }
             }
-            else fail++;
         }
         else
         {

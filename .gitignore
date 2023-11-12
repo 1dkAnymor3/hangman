@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# I really want it to ignore main (the result of compilation)
+main

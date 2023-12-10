@@ -8,6 +8,8 @@
 #define cout std::cout
 #define cin std::cin
 
+std::vector<std::exception> problems;
+
 std::vector<std::string> importTxtFileAsVec(std::string txtFileLoc)
 {
     std::string line;
@@ -46,7 +48,15 @@ bool charInString(char c, std::string s)
 
 bool findCharInString(int &index, int startAt, char c, std::string s)
 {
-    if (!charInString(c, s.substr(startAt + 1))) return false;
+    try
+    {
+        if (!charInString(c, s.substr(startAt + 1))) return false;
+    }
+    catch(const std::exception& e)
+    {
+        problems.push_back(e);
+        return false;
+    }
     index = s.substr(startAt).find(c) + startAt;
     return true;
 }
@@ -101,6 +111,10 @@ int main()
     
     if (view == answer) cout << "You Win!" << endl;
     else cout << "You Lose. The answer was " << answer << endl;
+
+    cout << "\nbtw you got some error while playing this:\n";
+    for (auto e : problems)
+        cout << e.what();
 
     return 0;
 }

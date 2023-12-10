@@ -8,7 +8,7 @@
 #define cout std::cout
 #define cin std::cin
 
-std::vector<std::exception> problems;
+std::vector<std::exception> problems; // public variable, will not look good at the pearly gates ong
 
 std::vector<std::string> importTxtFileAsVec(std::string txtFileLoc)
 {
@@ -109,10 +109,10 @@ int main()
         }
     } while (fail < maxTurns && view != answer);
     
-    if (view == answer) cout << "You Win!" << endl;
+    if (view == answer) cout << answer << endl << "You Win!" << endl;
     else cout << "You Lose. The answer was " << answer << endl;
 
-    cout << "\nbtw you got some error while playing this:\n";
+    if (problems.size() > 0) cout << "btw you got some error while playing this:" << endl;
     for (auto e : problems)
         cout << e.what();
 
